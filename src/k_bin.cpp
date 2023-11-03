@@ -33,23 +33,27 @@ uint64_t k_bin::rev_bin(uint64_t k_bin) const {
   return (~k_bin) & ((1LL << (k_size * 2)) - 1);
 }
 
-std::unordered_set<uint64_t> k_bin::get_kmers(const std::string& seq) {
-  std::unordered_set<uint64_t>k_bins;
-  uint64_t k_bin = 0, r_bin = 0;
-  for(int i=0; i+k_size<=seq.size(); ++i){
-    if(i==0){
-      k_bin = kmer2bin(seq.substr(i, k_size));
-      r_bin = rev_bin(k_bin);
+void k_bin::get_kmer() {
+  if(pos+k_size<=seq.size()){
+    if(pos == 0){
+      this->kbin = kmer2bin(seq.substr(pos, k_size));
+      this->rbin = rev_bin(this->kbin);
     }else{
-      k_bin <<= 2;
-      k_bin |= mp_base[seq[i+k_size-1]];
-      k_bin &= (1LL<<(k_size*2))-1;
-      r_bin >>= 2;
-      r_bin |= (~mp_base[seq[i+k_size-1]])<<(k_size*2-2);
-      r_bin &= (1LL<<(k_size*2))-1;
+      this->kbin <<= 2;
+      this->kbin |= mp_base[seq[pos+k_size-1]];
+      this->kbin &= (1LL<<(k_size*2))-1;
+      this->rbin >>= 2;
+      this->rbin |= (~mp_base[seq[pos+k_size-1]])<<(k_size*2-2);
+      this->rbin &= (1LL<<(k_size*2))-1;
     }
-    k_bins.insert(k_bin);
-    k_bins.insert(r_bin);
+    this->pos++;
   }
-  return k_bins;
 }
+
+uint64_t k_bin::get_kbin() { return this->kbin; }
+
+uint64_t k_bin::get_rbin() { return this->rbin; }
+
+uint64_t k_bin::get_pos() { return this->pos; }
+
+void k_bin::reset_pos() { this->pos = 0; }

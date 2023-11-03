@@ -12,18 +12,31 @@
 class k_bin {
 private:
   uint64_t k_size;
+  uint64_t pos;
+  uint64_t kbin;
+  uint64_t rbin;
+  std::string seq;
   std::unordered_map<char, u_int64_t> mp_base = {
       {'A', 0LL}, {'C', 1LL}, {'G', 2LL}, {'T', 3LL}};
   std::unordered_map<u_int64_t, char> mp_bin = {
       {0LL, 'A'}, {1LL, 'C'}, {2LL, 'G'}, {3LL, 'T'}};
 
 public:
-  k_bin() { this->k_size = 17; }
-  explicit k_bin(uint64_t k_size) { this->k_size = k_size; }
+  explicit k_bin(std::string seq, uint64_t k_size = 17) {
+    this->seq = std::move(seq);
+    this->k_size = k_size;
+    this->pos = 0;
+    this->kbin = 0;
+    this->rbin = 0;
+  }
   uint64_t kmer2bin(const std::string &k_mer);
   std::string bin2kmer(uint64_t k_bin);
   uint64_t rev_bin(uint64_t k_bin) const;
-  std::unordered_set<uint64_t> get_kmers(const std::string& seq);
+  void get_kmer();
+  uint64_t get_kbin();
+  uint64_t get_rbin();
+  uint64_t get_pos();
+  void reset_pos();
 };
 
 #endif // KATE_K_BIN_H

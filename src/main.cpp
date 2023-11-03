@@ -5,18 +5,20 @@
 
 int main(int argc, char *argv[]) {
   if (argc < 3) {
-    std::cout << "KATE <seq> <k_size>" << std::endl;
-  }else{
+    std::cout << "KITE <seq> <k_size>" << std::endl;
+  } else {
     std::string seq = argv[1];
     std::stringstream ss;
     ss << argv[2];
     int k_size;
     ss >> k_size;
-    k_bin kb = k_bin(k_size);
-    std::unordered_set<uint64_t> kbins = kb.get_kmers(seq);
-    for(const uint64_t& bin: kbins){
-      std::cout<<kb.bin2kmer(bin)<<std::endl;
+    k_bin kb = k_bin(seq, k_size);
+    while (kb.get_pos() <= seq.size() - k_size) {
+      kb.get_kmer();
+      std::cout << kb.bin2kmer(kb.get_kbin()) << std::endl;
+      std::cout << kb.bin2kmer(kb.get_rbin()) << std::endl;
     }
+    kb.reset_pos();
   }
   return 0;
 }
