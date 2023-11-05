@@ -31,7 +31,7 @@ uint64_t k_bin::rev_bin(uint64_t k_bin) const {
                                                    << 16;
   k_bin = k_bin >> 32 | k_bin << 32;
   k_bin >>= 64 - k_size * 2;
-  return (~k_bin) & mask;
+  return (~k_bin) & MASK;
 }
 
 void k_bin::get_kmer() {
@@ -42,10 +42,10 @@ void k_bin::get_kmer() {
     } else {
       this->kbin <<= 2;
       this->kbin |= mp_base[seq[pos + k_size - 1]];
-      this->kbin &= mask;
+      this->kbin &= MASK;
       this->rbin >>= 2;
       this->rbin |= (~mp_base[seq[pos + k_size - 1]]) << (k_size * 2 - 2);
-      this->rbin &= mask;
+      this->rbin &= MASK;
     }
     this->pos++;
   }
