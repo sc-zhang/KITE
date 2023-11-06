@@ -33,6 +33,7 @@ std::unordered_map<std::string, std::string> fasta_io::read() {
     mp_seq[seq_id] = seq;
     seq_id.clear();
     seq.clear();
+    fs.close();
     return mp_seq;
   } else {
     return {};

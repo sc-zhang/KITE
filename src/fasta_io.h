@@ -14,7 +14,9 @@ private:
   std::string file_name;
 
 public:
-  fasta_io(std::string file_name) { this->file_name = std::move(file_name); }
+  explicit fasta_io(std::string file_name) {
+    this->file_name = std::move(file_name);
+  }
   // read fasta file and return an unordered_name:
   // sequence_id => sequence
   std::unordered_map<std::string, std::string> read();
