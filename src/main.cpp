@@ -1,16 +1,19 @@
 #include "fasta_io.h"
 #include "k_bin.h"
+#include "msg.h"
 #include <bitset>
 #include <iostream>
 #include <sstream>
 #include <unordered_map>
 
 int main(int argc, char *argv[]) {
-  if (argc < 3) {
-    std::cout << "KITE <fasta_file> <k_size>" << std::endl;
+  if (argc < 4) {
+    std::cout << "KITE <fasta_file> <k_size> <kmer_file>" << std::endl;
   } else {
     std::string fasta_file;
+    std::string kmer_file;
     std::stringstream ss;
+    msg msg;
     int k_size;
     std::unordered_map<std::string, std::string> mp_seq;
     std::unordered_map<uint64_t, int> mp_kmer;
@@ -20,6 +23,9 @@ int main(int argc, char *argv[]) {
     fasta_file = argv[1];
     ss << argv[2];
     ss >> k_size;
+    kmer_file = argv[3];
+
+    msg::info("Loading fasta");
     fasta_io ff = fasta_io(fasta_file);
     mp_seq = ff.read();
 
@@ -34,6 +40,7 @@ int main(int argc, char *argv[]) {
     // get uniq kmer map
     // k_bin=>sample_index
     // value 0 means not unique
+    msg::info("Generating k-mers");
     for (auto &it : mp_seq) {
       k_bin kb = k_bin(it.second, k_size);
       while (kb.get_pos() <= it.second.size() - k_size) {
@@ -53,15 +60,19 @@ int main(int argc, char *argv[]) {
       }
     }
 
+    msg::info("Writing k-mers");
     k_bin kb = k_bin("", k_size);
+    std::fstream kfs;
+    kfs.open(kmer_file, std::ios_base::out);
     // display kmer map
     for (auto &it : mp_kmer) {
       if (it.second == 0) {
         continue;
       }
-      std::cout << kb.bin2kmer(it.first) << " " << sample_id[it.second]
-                << std::endl;
+      kfs << kb.bin2kmer(it.first) << " " << sample_id[it.second] << std::endl;
     }
+    kfs.close();
+    msg::info("Finished");
   }
   return 0;
 }
