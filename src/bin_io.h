@@ -11,9 +11,10 @@
 
 class Header {
 public:
-  std::string magic = "KITE";
+  char magic[4] = {'K', 'I', 'T', 'E'};
   int sample_count;
   std::vector<std::string> samples;
+  int record_count;
 };
 class Record {
 public:

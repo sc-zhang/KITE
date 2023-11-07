@@ -20,7 +20,9 @@ bool bin_io::write(std::unordered_map<uint64_t, int> &mp_kmer,
     for (auto &it : sample_id) {
       header.samples[it.first] = it.second;
     }
+    header.record_count = (int)mp_kmer.size();
     fs.write((char *)&header, sizeof(header));
+    
     for (auto &it : mp_kmer) {
       Record record = Record();
       record.kbin = it.first;
