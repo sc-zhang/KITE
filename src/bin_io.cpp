@@ -5,7 +5,6 @@
 #include "bin_io.h"
 #include "kite.h"
 #include <cstring>
-#include <iostream>
 #include <utility>
 
 bin_io::bin_io(std::string file_name) {
@@ -70,7 +69,6 @@ bool bin_io::read() {
       fs.read(buffer, id_length);
       buffer[id_length] = '\0';
       sample = buffer;
-      std::cout << i + 1 << " " << sample << std::endl;
       this->mp_sample_ids[i + 1] = sample;
     }
     for (uint64_t i = 0; i < header.record_count; ++i) {
