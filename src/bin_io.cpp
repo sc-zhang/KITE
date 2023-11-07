@@ -38,7 +38,7 @@ bool bin_io::write(std::unordered_map<uint64_t, uint32_t> &mp_kmer,
     for (auto &it : mp_kmer) {
       Record record = Record();
       record.kbin = it.first;
-      if (it.second == kite::unknown) {
+      if (it.second == kite::flag::unknown) {
         continue;
       }
       record.sample_idx = it.second;

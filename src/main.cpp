@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
       k_bin kb = k_bin("", k_size);
       bio.read();
       for (auto &it : bio.mp_kmer_records) {
-        if (it.second == kite::unknown) {
+        if (it.second == kite::flag::unknown) {
           continue;
         }
         std::cout << kb.bin2kmer(it.first) << " "
@@ -67,12 +67,12 @@ int main(int argc, char *argv[]) {
           if (!mp_kmer.count(kbin)) {
             mp_kmer[kbin] = id_sample[it.first];
           } else {
-            mp_kmer[kbin] = kite::unknown;
+            mp_kmer[kbin] = kite::flag::unknown;
           }
           if (!mp_kmer.count(rbin)) {
             mp_kmer[rbin] = id_sample[it.first];
           } else {
-            mp_kmer[rbin] = kite::unknown;
+            mp_kmer[rbin] = kite::flag::unknown;
           }
         }
       }

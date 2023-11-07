@@ -5,6 +5,9 @@
 #ifndef KITE_KITE_H
 #define KITE_KITE_H
 namespace kite {
-const uint32_t unknown = 0;
-}
+class flag {
+public:
+  static const uint32_t unknown = 0;
+};
+} // namespace kite
 #endif // KITE_KITE_H
