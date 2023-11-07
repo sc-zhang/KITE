@@ -38,7 +38,7 @@ bool bin_io::write(std::unordered_map<uint64_t, uint32_t> &mp_kmer,
     for (auto &it : mp_kmer) {
       Record record = Record();
       record.kbin = it.first;
-      if (it.second == Kite::unknown) {
+      if (it.second == kite::unknown) {
         continue;
       }
       record.sample_idx = it.second;
@@ -56,7 +56,7 @@ bool bin_io::read() {
   if (fs) {
     Header header;
     fs.read((char *)&header, sizeof(header));
-    if (strcmp(header.magic, "Kite") != 0) {
+    if (strcmp(header.magic, "kite") != 0) {
       fs.close();
       return false;
     }

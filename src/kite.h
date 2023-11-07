@@ -4,7 +4,7 @@
 
 #ifndef KITE_KITE_H
 #define KITE_KITE_H
-namespace Kite {
+namespace kite {
 const uint32_t unknown = 0;
 }
 #endif // KITE_KITE_H

@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[]) {
   if (argc < 4) {
-    std::cout << "Kite <fasta_file> <k_size> <kmer_file>" << std::endl;
+    std::cout << "kite <fasta_file> <k_size> <kmer_file>" << std::endl;
   } else {
     std::string fasta_file;
     std::string kmer_file;
@@ -67,12 +67,12 @@ int main(int argc, char *argv[]) {
           if (!mp_kmer.count(kbin)) {
             mp_kmer[kbin] = id_sample[it.first];
           } else {
-            mp_kmer[kbin] = Kite::unknown;
+            mp_kmer[kbin] = kite::unknown;
           }
           if (!mp_kmer.count(rbin)) {
             mp_kmer[rbin] = id_sample[it.first];
           } else {
-            mp_kmer[rbin] = Kite::unknown;
+            mp_kmer[rbin] = kite::unknown;
           }
         }
       }
