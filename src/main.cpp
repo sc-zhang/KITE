@@ -1,3 +1,4 @@
+#include "bin_io.h"
 #include "fasta_io.h"
 #include "k_bin.h"
 #include "msg.h"
@@ -61,17 +62,8 @@ int main(int argc, char *argv[]) {
     }
 
     msg::info("Writing k-mers");
-    k_bin kb = k_bin("", k_size);
-    std::fstream kfs;
-    kfs.open(kmer_file, std::ios_base::out);
-    // display kmer map
-    for (auto &it : mp_kmer) {
-      if (it.second == 0) {
-        continue;
-      }
-      kfs << kb.bin2kmer(it.first) << " " << sample_id[it.second] << std::endl;
-    }
-    kfs.close();
+    bin_io bio = bin_io(kmer_file);
+    bio.write(mp_kmer, sample_id);
     msg::info("Finished");
   }
   return 0;
