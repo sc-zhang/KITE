@@ -12,4 +12,5 @@ add_executable(KITE src/main.cpp
         src/msg.h
         src/bin_io.cpp
         src/bin_io.h
+        src/kite.h
 )
