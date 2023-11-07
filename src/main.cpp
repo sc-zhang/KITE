@@ -1,6 +1,7 @@
 #include "bin_io.h"
 #include "fasta_io.h"
 #include "k_bin.h"
+#include "kite.h"
 #include "msg.h"
 #include <bitset>
 #include <iostream>
@@ -8,7 +9,7 @@
 
 int main(int argc, char *argv[]) {
   if (argc < 4) {
-    std::cout << "KITE <fasta_file> <k_size> <kmer_file>" << std::endl;
+    std::cout << "Kite <fasta_file> <k_size> <kmer_file>" << std::endl;
   } else {
     std::string fasta_file;
     std::string kmer_file;
@@ -66,12 +67,12 @@ int main(int argc, char *argv[]) {
           if (!mp_kmer.count(kbin)) {
             mp_kmer[kbin] = id_sample[it.first];
           } else {
-            mp_kmer[kbin] = 0;
+            mp_kmer[kbin] = Kite::unknown;
           }
           if (!mp_kmer.count(rbin)) {
             mp_kmer[rbin] = id_sample[it.first];
           } else {
-            mp_kmer[rbin] = 0;
+            mp_kmer[rbin] = Kite::unknown;
           }
         }
       }
