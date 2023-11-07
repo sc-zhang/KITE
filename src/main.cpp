@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
       k_bin kb = k_bin("", k_size);
       bio.read();
       for (auto &it : bio.mp_kmer_records) {
-        if (it.second == 0) {
+        if (it.second == kite::unknown) {
           continue;
         }
         std::cout << kb.bin2kmer(it.first) << " "
