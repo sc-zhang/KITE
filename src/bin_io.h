@@ -12,6 +12,7 @@
 class Header {
 public:
   std::string magic = "KITE";
+  int sample_count;
   std::vector<std::string> samples;
 };
 class Record {

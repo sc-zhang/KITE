@@ -15,6 +15,7 @@ bool bin_io::write(std::unordered_map<uint64_t, int> &mp_kmer,
     int sample_cnt = (int)sample_id.size();
     Header header = Header();
     header.samples.resize(sample_cnt + 1);
+    header.sample_count = sample_cnt + 1;
     header.samples[0] = "Unknown";
     for (auto &it : sample_id) {
       header.samples[it.first] = it.second;
