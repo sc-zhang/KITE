@@ -15,11 +15,11 @@ int main(int argc, char *argv[]) {
     std::string kmer_file;
     std::stringstream ss;
     msg msg;
-    int k_size;
+    uint8_t k_size;
     std::unordered_map<std::string, std::string> mp_seq;
-    std::unordered_map<uint64_t, int> mp_kmer;
-    std::unordered_map<std::string, int> id_sample;
-    std::unordered_map<int, std::string> sample_id;
+    std::unordered_map<uint64_t, uint32_t> mp_kmer;
+    std::unordered_map<std::string, uint32_t> id_sample;
+    std::unordered_map<uint32_t, std::string> sample_id;
 
     fasta_file = argv[1];
     ss << argv[2];
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     mp_seq = ff.read();
 
     // set sample index, 1-based
-    int idx = 1;
+    uint32_t idx = 1;
     for (auto &it : mp_seq) {
       id_sample[it.first] = idx;
       sample_id[idx] = it.first;
@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 
     msg::info("Writing k-mers");
     bin_io bio = bin_io(kmer_file);
-    bio.write(mp_kmer, sample_id);
+    bio.write(mp_kmer, sample_id, k_size);
     msg::info("Finished");
   }
   return 0;
