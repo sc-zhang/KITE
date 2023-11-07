@@ -27,10 +27,10 @@ class bin_io {
 private:
   std::string file_name;
   std::fstream fs;
-  std::unordered_map<uint64_t, uint32_t> mp_kmer_records;
-  std::unordered_map<uint32_t, std::string> mp_sample_ids;
 
 public:
+  std::unordered_map<uint64_t, uint32_t> mp_kmer_records;
+  std::unordered_map<uint32_t, std::string> mp_sample_ids;
   explicit bin_io(std::string file_name);
   bool write(std::unordered_map<uint64_t, uint32_t> &mp_kmer,
              std::unordered_map<uint32_t, std::string> &sample_id,
