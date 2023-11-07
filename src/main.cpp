@@ -14,8 +14,7 @@ int main(int argc, char *argv[]) {
     std::string fasta_file;
     std::string kmer_file;
     std::stringstream ss;
-    msg msg;
-    uint8_t k_size;
+    uint32_t k_size;
     std::unordered_map<std::string, std::string> mp_seq;
     std::unordered_map<uint64_t, uint32_t> mp_kmer;
     std::unordered_map<std::string, uint32_t> id_sample;
@@ -31,7 +30,7 @@ int main(int argc, char *argv[]) {
       msg::info("Loading k-mer");
       bin_io bio = bin_io(kmer_file);
       k_bin kb = k_bin("", k_size);
-      bio.read(k_size);
+      bio.read();
       for (auto &it : bio.mp_kmer_records) {
         std::cout << kb.bin2kmer(it.first) << " "
                   << bio.mp_sample_ids[it.second] << std::endl;
@@ -52,7 +51,7 @@ int main(int argc, char *argv[]) {
       // get uniq kmer map
       // k_bin=>sample_index
       // value 0 means not unique
-      msg::info("Generating k-mers");
+      msg::info("Generating k-mers with " + std::to_string(k_size));
       for (auto &it : mp_seq) {
         k_bin kb = k_bin(it.second, k_size);
         while (kb.get_pos() <= it.second.size() - k_size) {
@@ -73,8 +72,8 @@ int main(int argc, char *argv[]) {
       }
 
       msg::info("Writing k-mers");
-      bin_io bio = bin_io(kmer_file);
-      bio.write(mp_kmer, sample_id, k_size);
+      bin_io bio = bin_io(kmer_file, k_size);
+      bio.write(mp_kmer, sample_id);
       msg::info("Finished");
     }
   }
