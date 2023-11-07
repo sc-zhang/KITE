@@ -17,10 +17,9 @@ bool bin_io::write(std::unordered_map<uint64_t, uint32_t> &mp_kmer,
                    std::unordered_map<uint32_t, std::string> &sample_id) {
   fs.open(this->file_name, std::ios_base::out | std::ios_base::binary);
   if (fs) {
-    uint32_t sample_cnt = sample_id.size();
     Header header = Header();
     header.k_size = this->k_size;
-    header.sample_count = sample_cnt + 1;
+    header.sample_count = sample_id.size() + 1;
     header.record_count = mp_kmer.size();
     fs.write((char *)&header, sizeof(header));
 
@@ -62,6 +61,7 @@ bool bin_io::read() {
       std::string sample;
       char *buffer = new char[id_length + 1];
       fs.read(buffer, id_length);
+      buffer[id_length] = '\0';
       sample = buffer;
       this->mp_sample_ids[i] = sample;
     }
