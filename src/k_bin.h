@@ -11,7 +11,7 @@
 
 class k_bin {
 private:
-  uint64_t k_size;
+  uint8_t k_size;
   uint64_t pos;
   uint64_t kbin;
   uint64_t rbin;
@@ -23,7 +23,7 @@ private:
       {0LL, 'A'}, {1LL, 'C'}, {2LL, 'G'}, {3LL, 'T'}};
 
 public:
-  explicit k_bin(std::string seq, uint64_t k_size = 17)
+  explicit k_bin(std::string seq, uint8_t k_size = 17)
       : MASK(k_size < 32 ? ((1LL << (k_size * 2)) - 1) : 0xFFFFFFFFFFFFFFFF) {
     this->seq = std::move(seq);
     this->k_size = k_size;
