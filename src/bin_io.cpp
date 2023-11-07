@@ -4,7 +4,6 @@
 
 #include "bin_io.h"
 #include <cstring>
-#include <iostream>
 #include <utility>
 
 bin_io::bin_io(std::string file_name) {
@@ -57,10 +56,6 @@ bool bin_io::read() {
       return false;
     }
     this->k_size = header.k_size;
-    std::cout << header.magic << std::endl;
-    std::cout << (int)header.k_size << std::endl;
-    std::cout << header.sample_count << std::endl;
-    std::cout << header.record_count << std::endl;
     for (uint32_t i = 0; i < header.sample_count; ++i) {
       uint16_t id_length;
       fs.read((char *)&id_length, sizeof(id_length));
