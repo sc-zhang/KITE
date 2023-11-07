@@ -73,7 +73,6 @@ bool bin_io::read() {
     for (uint64_t i = 0; i < header.record_count; ++i) {
       Record record{};
       fs.read((char *)&record, sizeof(record));
-      std::cout << record.kbin << " " << record.sample_idx << std::endl;
       this->mp_kmer_records[record.kbin] = record.sample_idx;
     }
     fs.close();

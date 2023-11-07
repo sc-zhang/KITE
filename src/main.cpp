@@ -4,7 +4,6 @@
 #include "msg.h"
 #include <bitset>
 #include <iostream>
-#include <sstream>
 #include <unordered_map>
 
 int main(int argc, char *argv[]) {
@@ -13,16 +12,19 @@ int main(int argc, char *argv[]) {
   } else {
     std::string fasta_file;
     std::string kmer_file;
-    std::stringstream ss;
-    uint32_t k_size;
+    std::string k_size_arg;
+    uint8_t k_size = 0;
     std::unordered_map<std::string, std::string> mp_seq;
     std::unordered_map<uint64_t, uint32_t> mp_kmer;
     std::unordered_map<std::string, uint32_t> id_sample;
     std::unordered_map<uint32_t, std::string> sample_id;
 
     fasta_file = argv[1];
-    ss << argv[2];
-    ss >> k_size;
+    k_size_arg = argv[2];
+    for (char &c : k_size_arg) {
+      k_size *= 10;
+      k_size += c - '0';
+    }
     kmer_file = argv[3];
 
     std::ifstream check_file(kmer_file);
@@ -32,6 +34,9 @@ int main(int argc, char *argv[]) {
       k_bin kb = k_bin("", k_size);
       bio.read();
       for (auto &it : bio.mp_kmer_records) {
+        if (it.second == 0) {
+          continue;
+        }
         std::cout << kb.bin2kmer(it.first) << " "
                   << bio.mp_sample_ids[it.second] << std::endl;
       }
