@@ -13,4 +13,5 @@ add_executable(KITE src/main.cpp
         src/bin_io.cpp
         src/bin_io.h
         src/kite.h
+        src/thread_pool.h
 )
