@@ -15,35 +15,35 @@
 
 template <typename T> class safe_queue {
 private:
-  std::queue<T> task_queue;
-  std::mutex task_mutex;
+  std::queue<T> m_queue;
+  std::mutex m_mutex;
 
 public:
   safe_queue() = default;
   safe_queue(safe_queue &&sq) noexcept {};
   ~safe_queue() = default;
   bool empty() {
-    std::unique_lock<std::mutex> lock(task_mutex);
-    return task_queue.empty();
+    std::unique_lock<std::mutex> lock(m_mutex);
+    return m_queue.empty();
   }
 
   int size() {
-    std::unique_lock<std::mutex> lock(task_mutex);
-    return task_queue.size();
+    std::unique_lock<std::mutex> lock(m_mutex);
+    return m_queue.size();
   }
 
   void enqueue(T &t) {
-    std::unique_lock<std::mutex> lock(task_mutex);
-    task_queue.emplace(t);
+    std::unique_lock<std::mutex> lock(m_mutex);
+    m_queue.emplace(t);
   }
 
   bool dequeue(T &t) {
-    std::unique_lock<std::mutex> lock(task_mutex);
-    if (task_queue.empty()) {
+    std::unique_lock<std::mutex> lock(m_mutex);
+    if (m_queue.empty()) {
       return false;
     }
-    t = std::move(task_queue.front());
-    task_queue.pop();
+    t = std::move(m_queue.front());
+    m_queue.pop();
     return true;
   }
 };
