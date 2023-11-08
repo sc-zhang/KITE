@@ -15,3 +15,6 @@ add_executable(KITE src/main.cpp
         src/kite.h
         src/thread_pool.h
 )
+
+install(TARGETS KITE
+        DESTINATION bin)
