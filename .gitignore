@@ -1,2 +1,4 @@
 cmake-*
 .idea
+.vscode
+.DS_Store
