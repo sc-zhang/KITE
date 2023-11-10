@@ -5,7 +5,7 @@
 #include "msg.h"
 #include <iomanip>
 
-void msg::print(const std::string &str, const std::string &color_string) {
+void msg::print(const std::string &str, const std::string &color_string) const {
   time_t now = time(nullptr);
   tm *tm_t = localtime(&now);
   if (this->use_cout) {

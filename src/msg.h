@@ -10,7 +10,7 @@
 
 class msg {
 private:
-  void print(const std::string &str, const std::string &color_string);
+  void print(const std::string &str, const std::string &color_string) const;
   bool use_cout;
 
 public:
