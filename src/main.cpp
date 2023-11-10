@@ -30,7 +30,8 @@ int main(int argc, char *argv[]) {
 
     std::ifstream check_file(kmer_file);
     if (check_file.good()) {
-      msg::info("Loading k-mer");
+      msg message = msg(false);
+      message.info("Loading k-mer");
       bin_io bio = bin_io(kmer_file);
       k_bin kb = k_bin("", k_size);
       bio.read();
@@ -42,7 +43,8 @@ int main(int argc, char *argv[]) {
                   << bio.mp_sample_ids[it.second] << std::endl;
       }
     } else {
-      msg::info("Loading fasta");
+      msg message = msg(true);
+      message.info("Loading fasta");
       fasta_io ff = fasta_io(fasta_file);
       mp_seq = ff.read();
 
@@ -57,7 +59,7 @@ int main(int argc, char *argv[]) {
       // get uniq kmer map
       // k_bin=>sample_index
       // value 0 means not unique
-      msg::info("Generating k-mers with " + std::to_string(k_size));
+      message.info("Generating k-mers with " + std::to_string(k_size));
       for (auto &it : mp_seq) {
         k_bin kb = k_bin(it.second, k_size);
         while (kb.get_pos() <= it.second.size() - k_size) {
@@ -77,10 +79,10 @@ int main(int argc, char *argv[]) {
         }
       }
 
-      msg::info("Writing k-mers");
+      message.info("Writing k-mers");
       bin_io bio = bin_io(kmer_file, k_size);
       bio.write(mp_kmer, sample_id);
-      msg::info("Finished");
+      message.info("Finished");
     }
   }
   return 0;

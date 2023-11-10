@@ -9,10 +9,15 @@
 #include <string>
 
 class msg {
+private:
+  void print(const std::string &str, const std::string &color_string);
+  bool use_cout;
+
 public:
-  static void info(const std::string &str);
-  static void warn(const std::string &str);
-  static void err(const std::string &str);
+  explicit msg(bool use_cout) { this->use_cout = use_cout; }
+  void info(const std::string &str);
+  void warn(const std::string &str);
+  void err(const std::string &str);
 };
 
 #endif // KITE_MSG_H
