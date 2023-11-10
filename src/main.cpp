@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
         std::cout << kb.bin2kmer(it.first) << " "
                   << bio.mp_sample_ids[it.second] << std::endl;
       }
+      message.info("Finished");
     } else {
       msg message = msg(true);
       message.info("Loading fasta");
@@ -55,6 +56,7 @@ int main(int argc, char *argv[]) {
         sample_id[idx] = it.first;
         ++idx;
       }
+      check_file.close();
 
       // get uniq kmer map
       // k_bin=>sample_index
