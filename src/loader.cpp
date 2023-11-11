@@ -16,7 +16,7 @@ std::unordered_map<uint64_t, uint32_t> loader::get_kmer_db() const {
 }
 uint32_t loader::get_sample_id(const std::string &sample) {
   return this->bio.sample_id[sample];
-};
+}
 std::string loader::get_sample_name(const uint32_t &id) {
   return this->bio.id_name[id];
 }
