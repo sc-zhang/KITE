@@ -14,6 +14,10 @@ add_executable(KITE src/main.cpp
         src/bin_io.h
         src/kite.h
         src/thread_pool.h
+        src/dumper.cpp
+        src/dumper.h
+        src/loader.cpp
+        src/loader.h
 )
 
 install(TARGETS KITE

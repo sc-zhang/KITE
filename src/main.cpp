@@ -1,11 +1,11 @@
 #include "bin_io.h"
-#include "fasta_io.h"
+#include "dumper.h"
 #include "k_bin.h"
 #include "kite.h"
+#include "loader.h"
 #include "msg.h"
 #include <bitset>
 #include <iostream>
-#include <unordered_map>
 
 int main(int argc, char *argv[]) {
   if (argc < 4) {
@@ -15,10 +15,6 @@ int main(int argc, char *argv[]) {
     std::string kmer_file;
     std::string k_size_arg;
     uint8_t k_size = 0;
-    std::unordered_map<std::string, std::string> mp_seq;
-    std::unordered_map<uint64_t, uint32_t> mp_kmer;
-    std::unordered_map<std::string, uint32_t> id_sample;
-    std::unordered_map<uint32_t, std::string> sample_id;
 
     fasta_file = argv[1];
     k_size_arg = argv[2];
@@ -30,62 +26,22 @@ int main(int argc, char *argv[]) {
 
     std::ifstream check_file(kmer_file);
     if (check_file.good()) {
-      msg message = msg(false);
-      message.info("Loading k-mer");
-      bin_io bio = bin_io(kmer_file);
+      loader kmer_loader = loader(kmer_file, k_size);
+      kmer_loader.load();
       k_bin kb = k_bin("", k_size);
-      bio.read();
-      for (auto &it : bio.mp_kmer_records) {
+      for (auto &it : kmer_loader.get_kmer_db()) {
         if (it.second == kite::flag::unknown) {
           continue;
         }
         std::cout << kb.bin2kmer(it.first) << " "
-                  << bio.mp_sample_ids[it.second] << std::endl;
+                  << kmer_loader.get_sample_name(it.second) << std::endl;
       }
-      message.info("Finished");
     } else {
-      msg message = msg(true);
-      message.info("Loading fasta");
-      fasta_io ff = fasta_io(fasta_file);
-      mp_seq = ff.read();
-
-      // set sample index, 1-based
-      uint32_t idx = 1;
-      for (auto &it : mp_seq) {
-        id_sample[it.first] = idx;
-        sample_id[idx] = it.first;
-        ++idx;
-      }
-      check_file.close();
-
-      // get uniq kmer map
-      // k_bin=>sample_index
-      // value 0 means not unique
-      message.info("Generating k-mers with " + std::to_string(k_size));
-      for (auto &it : mp_seq) {
-        k_bin kb = k_bin(it.second, k_size);
-        while (kb.get_pos() <= it.second.size() - k_size) {
-          kb.get_kmer();
-          uint64_t kbin = kb.get_kbin();
-          uint64_t rbin = kb.get_rbin();
-          if (!mp_kmer.count(kbin)) {
-            mp_kmer[kbin] = id_sample[it.first];
-          } else {
-            mp_kmer[kbin] = kite::flag::unknown;
-          }
-          if (!mp_kmer.count(rbin)) {
-            mp_kmer[rbin] = id_sample[it.first];
-          } else {
-            mp_kmer[rbin] = kite::flag::unknown;
-          }
-        }
-      }
-
-      message.info("Writing k-mers");
-      bin_io bio = bin_io(kmer_file, k_size);
-      bio.write(mp_kmer, sample_id);
-      message.info("Finished");
+      dumper kmer_dumper = dumper(fasta_file, k_size, kmer_file);
+      kmer_dumper.extract();
+      kmer_dumper.save();
     }
+    check_file.close();
   }
   return 0;
 }
