@@ -30,7 +30,8 @@ private:
 
 public:
   std::unordered_map<uint64_t, uint32_t> mp_kmer_records;
-  std::unordered_map<uint32_t, std::string> mp_sample_ids;
+  std::unordered_map<uint32_t, std::string> id_name;
+  std::unordered_map<std::string, uint32_t> sample_id;
   uint8_t k_size{};
   explicit bin_io(std::string file_name);
   bin_io(std::string file_name, uint8_t k_size);

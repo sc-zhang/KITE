@@ -69,7 +69,8 @@ bool bin_io::read() {
       fs.read(buffer, id_length);
       buffer[id_length] = '\0';
       sample = buffer;
-      this->mp_sample_ids[i + 1] = sample;
+      this->id_name[i + 1] = sample;
+      this->sample_id[sample] = i + 1;
     }
     for (uint64_t i = 0; i < header.record_count; ++i) {
       Record record{};
