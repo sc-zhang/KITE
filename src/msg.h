@@ -5,19 +5,34 @@
 #ifndef KITE_MSG_H
 #define KITE_MSG_H
 #include <ctime>
+#include <iomanip>
 #include <iostream>
 #include <string>
 
 class msg {
 private:
-  void print(const std::string &str, const std::string &color_string) const;
+  void print(const std::string &str, const std::string &color_string) const {
+    time_t now = time(nullptr);
+    tm *tm_t = localtime(&now);
+    if (this->use_cout) {
+      std::cout << color_string << std::setw(2) << std::setfill('0')
+                << tm_t->tm_hour << ":" << std::setw(2) << std::setfill('0')
+                << tm_t->tm_min << ":" << std::setw(2) << std::setfill('0')
+                << tm_t->tm_sec << "] \033[0m " << str << std::endl;
+    } else {
+      std::cerr << color_string << std::setw(2) << std::setfill('0')
+                << tm_t->tm_hour << ":" << std::setw(2) << std::setfill('0')
+                << tm_t->tm_min << ":" << std::setw(2) << std::setfill('0')
+                << tm_t->tm_sec << "] \033[0m " << str << std::endl;
+    }
+  };
   bool use_cout;
 
 public:
   explicit msg(bool use_cout) { this->use_cout = use_cout; }
-  void info(const std::string &str);
-  void warn(const std::string &str);
-  void err(const std::string &str);
+  void info(const std::string &str) { this->print(str, "\033[32m ["); };
+  void warn(const std::string &str) { this->print(str, "\033[33m ["); };
+  void err(const std::string &str) { this->print(str, "\031[32m ["); };
 };
 
 #endif // KITE_MSG_H
