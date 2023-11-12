@@ -24,6 +24,8 @@ int main(int argc, char *argv[]) {
     }
     kmer_file = argv[3];
 
+    msg message = msg(false);
+    message.info("Starting");
     std::ifstream check_file(kmer_file);
     if (check_file.good()) {
       loader kmer_loader = loader(kmer_file, k_size);
@@ -42,6 +44,7 @@ int main(int argc, char *argv[]) {
       kmer_dumper.save();
     }
     check_file.close();
+    message.info("Finished");
   }
   return 0;
 }
