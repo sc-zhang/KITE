@@ -36,7 +36,7 @@ public:
   explicit bin_io(std::string file_name);
   bin_io(std::string file_name, uint8_t k_size);
   bool write(std::unordered_map<uint64_t, uint32_t> &mp_kmer,
-             std::unordered_map<uint32_t, std::string> &sample_id);
+             std::unordered_map<uint32_t, std::string> &mp_sample_id);
   bool read();
 };
 

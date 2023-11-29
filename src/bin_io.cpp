@@ -17,17 +17,17 @@ bin_io::bin_io(std::string file_name, uint8_t k_size) {
 }
 
 bool bin_io::write(std::unordered_map<uint64_t, uint32_t> &mp_kmer,
-                   std::unordered_map<uint32_t, std::string> &sample_id) {
+                   std::unordered_map<uint32_t, std::string> &mp_sample_id) {
   fs.open(this->file_name, std::ios_base::out | std::ios_base::binary);
   if (fs) {
     Header header = Header();
     header.k_size = this->k_size;
-    header.sample_count = sample_id.size();
+    header.sample_count = mp_sample_id.size();
     header.record_count = mp_kmer.size();
     fs.write((char *)&header, sizeof(header));
 
     std::vector<std::string> samples(header.sample_count);
-    for (auto &it : sample_id) {
+    for (auto &it : mp_sample_id) {
       samples[it.first - 1] = it.second;
     }
     for (auto &sample : samples) {
