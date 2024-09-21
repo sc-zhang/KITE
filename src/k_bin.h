@@ -5,6 +5,7 @@
 #ifndef KATE_K_BIN_H
 #define KATE_K_BIN_H
 #include <algorithm>
+#include <cstdint>
 #include <string>
 #include <unordered_map>
 
@@ -16,9 +17,9 @@ private:
   uint64_t rbin;
   const uint64_t MASK;
   std::string seq;
-  std::unordered_map<char, u_int64_t> mp_base = {
+  std::unordered_map<char, uint64_t> mp_base = {
       {'A', 0LL}, {'C', 1LL}, {'G', 2LL}, {'T', 3LL}};
-  std::unordered_map<u_int64_t, char> mp_bin = {
+  std::unordered_map<uint64_t, char> mp_bin = {
       {0LL, 'A'}, {1LL, 'C'}, {2LL, 'G'}, {3LL, 'T'}};
 
 public:

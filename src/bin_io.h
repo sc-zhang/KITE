@@ -4,6 +4,7 @@
 
 #ifndef KITE_BIN_IO_H
 #define KITE_BIN_IO_H
+#include <cstdint>
 #include <fstream>
 #include <string>
 #include <unordered_map>
