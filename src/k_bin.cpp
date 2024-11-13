@@ -35,10 +35,29 @@ uint64_t k_bin::rev_bin(uint64_t k_bin) const {
 }
 
 void k_bin::get_kmer() {
-  if (pos + k_size <= seq.size()) {
-    if (pos == 0) {
-      this->kbin = kmer2bin(seq.substr(pos, k_size));
-      this->rbin = rev_bin(this->kbin);
+  if (this->pos + k_size <= seq.size()) {
+    if (this->pos == 0 || seq[this->pos+k_size-1] == 'N') {
+      uint64_t npos;
+      bool is_valid_kmer = false;
+      while(!is_valid_kmer && this->pos+k_size<=seq.size()){
+        npos = this->pos+k_size;
+        for(uint64_t i=npos-1; i>=this->pos; --i){
+          if(seq[i] == 'N'){
+            npos = i;
+            break;
+          }
+          if(i==0){
+            break;
+          }
+        }
+        if(npos==this->pos+k_size){
+          this->kbin = kmer2bin(seq.substr(this->pos, k_size));
+          this->rbin = rev_bin(this->kbin);
+          is_valid_kmer = true;
+        }else{
+          this->pos = npos+1;
+        }
+      }
     } else {
       this->kbin <<= 2;
       this->kbin |= mp_base[seq[pos + k_size - 1]];
