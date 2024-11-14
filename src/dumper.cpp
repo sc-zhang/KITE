@@ -23,6 +23,10 @@ void dumper::extract() {
   // value 0 means not unique
   message.info("Generating k-mers with " + std::to_string(this->k_size));
   for (auto &it : this->mp_seq) {
+    //skip sequence shorter than the size of kmer
+    if(it.second.size() < this->k_size){
+      continue;
+    }
     k_bin kb = k_bin(it.second, this->k_size);
     while (kb.get_pos() <= it.second.size() - this->k_size) {
       kb.get_kmer();
