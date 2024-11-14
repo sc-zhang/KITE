@@ -11,11 +11,13 @@ add_executable(rune src/main.cpp
         src/msg.h
         src/bin_io.cpp
         src/bin_io.h
-        src/kite.h
+        src/rune.h
         src/dumper.cpp
         src/dumper.h
         src/loader.cpp
         src/loader.h
+        src/args.cpp
+        src/args.h
 )
 
 install(TARGETS rune
