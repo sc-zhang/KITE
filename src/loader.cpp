@@ -11,6 +11,17 @@ void loader::load() {
   bio.read();
   message.info("Loaded");
 }
+void loader::save(const std::string &output_file) {
+  std::ofstream fs(output_file);
+  k_bin kb = k_bin("", k_size);
+  for (auto &it : this->get_kmer_db()) {
+    if (it.second == rune::flag::unknown) {
+      continue;
+    }
+    fs << kb.bin2kmer(it.first) << "\t" << this->get_sample_name(it.second)
+       << "\n";
+  }
+}
 std::unordered_map<uint64_t, uint32_t> loader::get_kmer_db() const {
   return this->bio.mp_kmer_records;
 }

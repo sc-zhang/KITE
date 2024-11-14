@@ -7,6 +7,8 @@
 #include "bin_io.h"
 #include "k_bin.h"
 #include "msg.h"
+#include "rune.h"
+#include <fstream>
 
 class loader {
 private:
@@ -18,11 +20,12 @@ private:
   bin_io bio;
 
 public:
-  loader(std::string kmer_file, uint8_t k_size) : bio(kmer_file) {
-    this->kmer_file = std::move(kmer_file);
+  loader(std::string kmer_bin_file, uint8_t k_size) : bio(kmer_bin_file) {
+    this->kmer_file = std::move(kmer_bin_file);
     this->k_size = k_size;
   };
   void load();
+  void save(const std::string &output_file);
   std::unordered_map<uint64_t, uint32_t> get_kmer_db() const;
   uint32_t get_sample_id(const std::string &sample);
   std::string get_sample_name(const uint32_t &id);
