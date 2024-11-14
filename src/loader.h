@@ -2,8 +2,8 @@
 // Created by zsc on 2023/11/11.
 //
 
-#ifndef KITE_LOADER_H
-#define KITE_LOADER_H
+#ifndef RUNE_LOADER_H
+#define RUNE_LOADER_H
 #include "bin_io.h"
 #include "k_bin.h"
 #include "msg.h"
@@ -28,4 +28,4 @@ public:
   std::string get_sample_name(const uint32_t &id);
 };
 
-#endif // KITE_LOADER_H
+#endif // RUNE_LOADER_H

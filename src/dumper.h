@@ -2,14 +2,14 @@
 // Created by zsc on 2023/11/11.
 //
 
-#ifndef KITE_DUMPER_H
-#define KITE_DUMPER_H
+#ifndef RUNE_DUMPER_H
+#define RUNE_DUMPER_H
 #include <utility>
 
 #include "bin_io.h"
 #include "fasta_io.h"
 #include "k_bin.h"
-#include "kite.h"
+#include "rune.h"
 #include "msg.h"
 
 class dumper {
@@ -36,4 +36,4 @@ public:
   std::string get_sample_name(const uint32_t &id);
 };
 
-#endif // KITE_DUMPER_H
+#endif // RUNE_DUMPER_H

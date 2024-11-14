@@ -2,8 +2,8 @@
 // Created by zsc on 2023/11/2.
 //
 
-#ifndef KATE_K_BIN_H
-#define KATE_K_BIN_H
+#ifndef RUNE_K_BIN_H
+#define RUNE_K_BIN_H
 #include <algorithm>
 #include <cstdint>
 #include <string>
@@ -41,4 +41,4 @@ public:
   void reset_pos();
 };
 
-#endif // KATE_K_BIN_H
+#endif // RUNE_K_BIN_H

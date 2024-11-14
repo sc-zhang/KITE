@@ -2,8 +2,8 @@
 // Created by zsc on 2023/11/7.
 //
 
-#ifndef KITE_BIN_IO_H
-#define KITE_BIN_IO_H
+#ifndef RUNE_BIN_IO_H
+#define RUNE_BIN_IO_H
 #include <cstdint>
 #include <fstream>
 #include <string>
@@ -41,4 +41,4 @@ public:
   bool read();
 };
 
-#endif // KITE_BIN_IO_H
+#endif // RUNE_BIN_IO_H

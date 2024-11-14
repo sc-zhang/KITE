@@ -2,8 +2,8 @@
 // Created by zsc on 2023/11/6.
 //
 
-#ifndef KITE_FASTA_IO_H
-#define KITE_FASTA_IO_H
+#ifndef RUNE_FASTA_IO_H
+#define RUNE_FASTA_IO_H
 #include <algorithm>
 #include <fstream>
 #include <string>
@@ -22,4 +22,4 @@ public:
   std::unordered_map<std::string, std::string> read();
 };
 
-#endif // KITE_FASTA_IO_H
+#endif // RUNE_FASTA_IO_H

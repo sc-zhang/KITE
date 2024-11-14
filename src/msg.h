@@ -2,8 +2,8 @@
 // Created by zsc on 2023/11/6.
 //
 
-#ifndef KITE_MSG_H
-#define KITE_MSG_H
+#ifndef RUNE_MSG_H
+#define RUNE_MSG_H
 #include <ctime>
 #include <iomanip>
 #include <iostream>
@@ -35,4 +35,4 @@ public:
   void err(const std::string &str) { this->print(str, "\031[32m ["); };
 };
 
-#endif // KITE_MSG_H
+#endif // RUNE_MSG_H
