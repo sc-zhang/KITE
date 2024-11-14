@@ -56,7 +56,7 @@ bool bin_io::read() {
   if (fs) {
     Header header;
     fs.read((char *)&header, sizeof(header));
-    if (strcmp(header.magic, "KITE") != 0) {
+    if (strcmp(header.magic, "RUNE") != 0) {
       fs.close();
       return false;
     }
