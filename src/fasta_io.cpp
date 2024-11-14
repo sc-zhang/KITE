@@ -20,7 +20,14 @@ std::unordered_map<std::string, std::string> fasta_io::read() {
           transform(seq.begin(), seq.end(), seq.begin(), ::toupper);
           mp_seq[seq_id] = seq;
         }
-        seq_id = line.substr(1, line.size() - 1);
+        int space_pos = 0;
+        for(int i=0; i<line.size(); ++i){
+          if(line[i] == ' ' || line[i] == '\t'){
+            space_pos = i;
+            break;
+          }
+        }
+        seq_id = line.substr(1, space_pos - 1);
         seq_id.erase(std::remove_if(seq_id.begin(), seq_id.end(), ::isspace),
                      seq_id.end());
         seq.clear();
