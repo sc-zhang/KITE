@@ -3,6 +3,7 @@
 //
 
 #include "fasta_io.h"
+#include <iostream>
 
 std::unordered_map<std::string, std::string> fasta_io::read() {
   std::unordered_map<std::string, std::string> mp_seq;
@@ -18,11 +19,14 @@ std::unordered_map<std::string, std::string> fasta_io::read() {
           seq.erase(std::remove_if(seq.begin(), seq.end(), ::isspace),
                     seq.end());
           transform(seq.begin(), seq.end(), seq.begin(), ::toupper);
+          if (!check_seq(seq)) {
+            return {};
+          }
           mp_seq[seq_id] = seq;
         }
         int space_pos = 0;
-        for(int i=0; i<line.size(); ++i){
-          if(line[i] == ' ' || line[i] == '\t'){
+        for (int i = 0; i < line.size(); ++i) {
+          if (line[i] == ' ' || line[i] == '\t') {
             space_pos = i;
             break;
           }
@@ -37,6 +41,9 @@ std::unordered_map<std::string, std::string> fasta_io::read() {
     }
     seq.erase(std::remove_if(seq.begin(), seq.end(), ::isspace), seq.end());
     transform(seq.begin(), seq.end(), seq.begin(), ::toupper);
+    if (!check_seq(seq)) {
+      return {};
+    }
     mp_seq[seq_id] = seq;
     seq_id.clear();
     seq.clear();

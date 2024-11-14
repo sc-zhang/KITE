@@ -8,10 +8,17 @@
 #include <fstream>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 
 class fasta_io {
 private:
+  std::unordered_set<char> bases = {'A', 'T', 'G', 'C', 'N'};
   std::string file_name;
+  bool check_seq(const std::string &seq) {
+    return std::all_of(seq.begin(), seq.end(), [this](const char base) {
+      return bases.find(base) != bases.end();
+    });
+  }
 
 public:
   explicit fasta_io(std::string file_name) {

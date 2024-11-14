@@ -9,7 +9,10 @@ void dumper::extract() {
   message.info("Loading fasta");
   fasta_io ff = fasta_io(this->fasta_file);
   this->mp_seq = ff.read();
-
+  if (this->mp_seq.empty()) {
+    message.err("Invalid fasta file");
+    exit(-1);
+  }
   // set sample index, 1-based
   uint32_t idx = 1;
   for (auto &it : this->mp_seq) {
