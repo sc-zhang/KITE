@@ -21,12 +21,15 @@ void dumper::extract() {
   // get uniq kmer map
   // k_bin=>sample_index
   // value 0 means not unique
+  uint32_t seq_cnt = 0, skip_seq_cnt = 0;
   message.info("Generating k-mers with " + std::to_string(this->k_size));
   for (auto &it : this->mp_seq) {
     //skip sequence shorter than the size of kmer
     if(it.second.size() < this->k_size){
+      ++skip_seq_cnt;
       continue;
     }
+    ++seq_cnt;
     k_bin kb = k_bin(it.second, this->k_size);
     while (kb.get_pos() <= it.second.size() - this->k_size) {
       kb.get_kmer();
@@ -44,6 +47,8 @@ void dumper::extract() {
       }
     }
   }
+  message.info(std::to_string(seq_cnt)+" sequences loaded, "
+               +std::to_string(skip_seq_cnt)+" skipped.");
 }
 
 void dumper::save() {
