@@ -26,25 +26,25 @@ options:
   -o output_file        Output file
 ```
 
-- dump is used for getting unique k-mers with "kmer_size" of each sequences in "input_file", and write into a binary
-  file "output_file".
+1. dump is used for getting unique k-mers with "kmer_size" of each sequences in "input_file", and write into a binary
+   file "output_file".
 
 > Example:
 > ```bash
 > rune dump -i ref.fasta -k 17 -o ref.kbin
 > ```
 
-- load is used for reading k-mer sequences and samples in dumped binary file, and write into a text file.
+2. load is used for reading k-mer sequences and samples in dumped binary file, and write into a text file.
 
 > Example
 > ```bash
 > rune load -i ref.kbin -k 17 -o ref.kmers
 > ```
-
-- kmers file is a text file like below
-
+> kmers file is a text file like below
+> ```text
 > AATGCATAGAGCAG seq1  
 > AATGCATTAGAGAG seq2
+> ```
 
 **Notice**
 > 1. id of sequence would be cut at first space/tab
