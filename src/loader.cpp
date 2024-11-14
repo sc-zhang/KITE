@@ -8,10 +8,12 @@ void loader::load() {
   msg message = msg(false);
   message.info("Loading k-mer");
   k_bin kb = k_bin("", k_size);
-  bio.read();
+  kmer_bin_io.read();
   message.info("Loaded");
 }
 void loader::save(const std::string &output_file) {
+  msg message = msg(false);
+  message.info("Writing");
   std::ofstream fs(output_file);
   k_bin kb = k_bin("", k_size);
   for (auto &it : this->get_kmer_db()) {
@@ -23,11 +25,11 @@ void loader::save(const std::string &output_file) {
   }
 }
 std::unordered_map<uint64_t, uint32_t> loader::get_kmer_db() const {
-  return this->bio.mp_kmer_records;
+  return this->kmer_bin_io.mp_kmer_records;
 }
 uint32_t loader::get_sample_id(const std::string &sample) {
-  return this->bio.sample_id[sample];
+  return this->kmer_bin_io.sample_id[sample];
 }
 std::string loader::get_sample_name(const uint32_t &id) {
-  return this->bio.id_name[id];
+  return this->kmer_bin_io.id_name[id];
 }

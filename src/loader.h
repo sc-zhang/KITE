@@ -17,10 +17,11 @@ private:
   std::unordered_map<uint64_t, uint32_t> mp_kmer;
   std::unordered_map<std::string, uint32_t> id_sample;
   std::unordered_map<uint32_t, std::string> sample_id;
-  bin_io bio;
+  bin_io kmer_bin_io;
 
 public:
-  loader(std::string kmer_bin_file, uint8_t k_size) : bio(kmer_bin_file) {
+  loader(std::string kmer_bin_file, uint8_t k_size)
+      : kmer_bin_io(kmer_bin_file) {
     this->kmer_file = std::move(kmer_bin_file);
     this->k_size = k_size;
   };
