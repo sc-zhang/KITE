@@ -1,4 +1,4 @@
-# RUNE: A Tool for Extracting Unique K-mers with fasta file
+# RUNE: A Tool for Extracting Unique K-mers with Single Fasta File
 
 ## Introduction
 
