@@ -8,8 +8,13 @@ void loader::load() {
   msg message = msg(false);
   message.info("Loading k-mer");
   k_bin kb = k_bin("", k_size);
-  kmer_bin_io.read();
-  message.info("Loaded");
+  bool is_vaild = kmer_bin_io.read();
+  if (is_vaild) {
+    message.info("Loaded");
+  } else {
+    message.err("Invalid binary file, exiting...");
+    exit(-1);
+  }
 }
 void loader::save(const std::string &output_file) {
   msg message = msg(false);

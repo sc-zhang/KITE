@@ -32,7 +32,7 @@ public:
   explicit msg(bool use_cout) { this->use_cout = use_cout; }
   void info(const std::string &str) { this->print(str, "\033[32m ["); };
   void warn(const std::string &str) { this->print(str, "\033[33m ["); };
-  void err(const std::string &str) { this->print(str, "\031[32m ["); };
+  void err(const std::string &str) { this->print(str, "\033[31m ["); };
 };
 
 #endif // RUNE_MSG_H
