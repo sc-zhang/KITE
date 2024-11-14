@@ -12,7 +12,6 @@ add_executable(rune src/main.cpp
         src/bin_io.cpp
         src/bin_io.h
         src/kite.h
-        src/thread_pool.h
         src/dumper.cpp
         src/dumper.h
         src/loader.cpp
