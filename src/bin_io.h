@@ -12,7 +12,7 @@
 
 class Header {
 public:
-  char magic[5] = {'K', 'I', 'T', 'E', '\0'};
+  char magic[5] = {'R', 'U', 'N', 'E', '\0'};
   uint8_t k_size{};
   uint32_t sample_count{};
   uint64_t record_count{};
