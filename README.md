@@ -20,10 +20,10 @@ make install
 ```bash
 usage: rune [-h] {dump,load} -i input_file -k kmer_size -o output_file
 options:
-  -h, --help    show this help message and exit
-  -i input_file Input file
-  -k kmer_size  kmer size, should be [3, 32], default=25
-  -o output_file        Output file
+  -h, --help        show this help message and exit
+  -i input_file     Input file
+  -k kmer_size      kmer size, should be [3, 32], default=25
+  -o output_file    Output file
 ```
 
 1. dump is used for getting unique k-mers with "kmer_size" of each sequences in "input_file", and write into a binary
