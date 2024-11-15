@@ -70,10 +70,10 @@ args::args(int argc, char **argv) {
         "usage: rune [-h] {dump,load} -i input_file -k "
         "kmer_size -o output_file\n"
         "options:\n"
-        "  -h, --help\tshow this help message and exit\n"
-        "  -i input_file\tInput file\n"
-        "  -k kmer_size\tkmer size, should be [3, 32], default=25\n"
-        "  -o output_file\tOutput file\n";
+        "  -h, --help        show this help message and exit\n"
+        "  -i input_file     Input file\n"
+        "  -k kmer_size      kmer size, should be [3, 32], default=25\n"
+        "  -o output_file    Output file\n";
     std::cout << help_string << std::endl;
     this->args_enough = false;
   }
